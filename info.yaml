@@ -1,11 +1,11 @@
 # Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
-  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
+  title:        "8-Bit Programable Counter"      # Project title
+  author:       "Matthew Papa"      # Your name
+  discord:      "bigred0535"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
+  description:  "8-bit counter with synch load and tri-state output"      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
+  clock_hz:     1       # Clock frequency in Hz (or 0 if not applicable)
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
@@ -23,8 +23,8 @@ project:
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: ""
-  ui[1]: ""
+  ui[0]: "CNT"
+  ui[1]: "SLD"
   ui[2]: ""
   ui[3]: ""
   ui[4]: ""
@@ -33,14 +33,14 @@ pinout:
   ui[7]: ""
 
   # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  uo[0]: "OUT0"
+  uo[1]: "OUT1"
+  uo[2]: "OUT2"
+  uo[3]: "OUT3"
+  uo[4]: "OUT4"
+  uo[5]: "OUT5"
+  uo[6]: "OUT6"
+  uo[7]: "OUT7"
 
   # Bidirectional pins
   uio[0]: ""
