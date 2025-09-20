@@ -18,18 +18,23 @@ module tt_um_example (
   //sets reg
   reg [7:0] counter;
 
+  wire load = uio_in[0];
+  wire [7:0]dat = ui_in;
+
   // All output pins must be assigned. If not used, assign to 0.
   //assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
   always @(posedge clk or negedge rst_n) begin
     if (!rst_n)
       counter <= 8'd0;
+    else if (load)
+      counter <= dat;
     else
-      counter <= counter + 8'd1;
+      counter <= counter + 8'b1;
   end
 
   assign uo_out  = counter;
-  assign uio_out = 8'd0;
-  assign uio_oe  = 8'd0;
+  assign uio_out = 8'b0;
+  assign uio_oe  = 8'b0;
 
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, clk, rst_n, 1'b0};
