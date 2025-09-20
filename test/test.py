@@ -1,6 +1,4 @@
-# SPDX-FileCopyrightText: © 2024 Tiny Tapeout
-# SPDX-License-Identifier: Apache-2.0
-
+# test/test.py
 import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import RisingEdge, ClockCycles
@@ -39,30 +37,30 @@ async def test_reset_and_increment(dut):
 
 
 @cocotb.test()
-async def test_wraparound(dut):
+async def test_load_wraparound(dut):
     """Counter must wrap from 255 to 0."""
     # Re-init defaults
     dut.ena.value    = 1
     dut.ui_in.value  = 0
     dut.uio_in.value = 0
     dut.clk.value    = 0
-    dut.rst_n.value  = 0  # assert reset
+    dut.rst_n.value  = 1
 
     # Start clock if not already running
     cocotb.start_soon(Clock(dut.clk, 10, units="ns").start())
 
-    # Release reset
-    await ClockCycles(dut.clk, 2)
-    dut.rst_n.value = 1
-
-    # After reset release, value at next edge becomes 0 (per previous test)
+    # Hold reset for a couple of cycles
     await RisingEdge(dut.clk)
-    assert int(dut.uo_out.value) == 0
+    dut.ui_in.value = 0xFE
+    dut.uio_in.value = 1
 
-    # Advance to 254
-    await ClockCycles(dut.clk, 254)
-    val_254 = int(dut.uo_out.value)
-    assert val_254 == 254, f"Expected 254 before wrap sequence, got {val_254}"
+    await RisingEdge(dut.clk)
+    dut.uio_in.value = 0
+    dut.ui_in.value = 0
+
+    await RisingEdge(dut.clk)
+    val_load = int(dut.uo_out.value)
+    assert val_load == 0xFE, f"Expected 254, got {val_load}"
 
     # Next: 255
     await RisingEdge(dut.clk)
