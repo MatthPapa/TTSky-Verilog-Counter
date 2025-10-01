@@ -9,12 +9,39 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-the project just does
+This is an 8-bit binary counter with asynchronous reset, synchronous load and tri-state outputs:
+
+#### Inputs:
+- Enable - ena
+- Reset - rst_n
+- Load Write - uio_in[0]
+- Load Data - ui_in[7:0]
+
+#### Outputs:
+- Data - uo_out[7:0]
 
 ## How to test
 
-you do the thing and do it well
+Simply run the test.py function! I have pre-made 3 tests to make sure the chip gives the expected output for each function:
+
+#### Test 1:  Reset and Increment
+- This first increments then sends n_rst to insure counter resets
+- Then increments timer 10 times and ensures increments each time
+
+![Test1](8BitC-Test1.png "Test1")
+
+#### Test 2: TRI-STATE
+- Holds the enable pin low and ensure data pins go into HIGH-Z mode
+
+![Test2](8BitC-Test2.png "Test2")
+
+#### Test 3: Load and Wrap Around
+- Loads 253 and ensures output is correct
+- Increments till 255, and once incremented one more ensures output is 0
+- Final test to make sure increments correctly after reset
+
+![Test3](8BitC-Test3.png "Test3")
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+None, just RTL sim

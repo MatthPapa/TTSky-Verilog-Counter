@@ -21,6 +21,12 @@ async def test_reset_and_increment(dut):
     await ClockCycles(dut.clk, 2)
     dut.rst_n.value = 1  # deassert reset
 
+    await ClockCycles(dut.clk, 2)
+    dut.rst_n.value = 0
+
+    await RisingEdge(dut.clk)
+    dut.rst_n.value = 1
+
     # After deasserting reset, first observed value should be 0 on the very next cycle
     await RisingEdge(dut.clk)
     val = int(dut.uo_out.value)
@@ -40,7 +46,7 @@ async def test_reset_and_increment(dut):
 async def test_load_wraparound(dut):
     """Counter must wrap from 255 to 0."""
     # Re-init defaults
-    dut.ena.value    = 1
+    dut.ena.value    = 0
     dut.ui_in.value  = 0
     dut.uio_in.value = 0
     dut.clk.value    = 0
@@ -48,6 +54,11 @@ async def test_load_wraparound(dut):
 
     # Start clock if not already running
     cocotb.start_soon(Clock(dut.clk, 10, units="ns").start())
+
+    await ClockCycles(dut.clk, 2);
+    z_str = dut.uo_out.value.binstr  # e.g., 'ZZZZZZZZ'
+    assert set(z_str.lower()) == {"z"}, f"Expected high Z, got {z_str}"
+    dut.ena.value = 1
 
     # Hold reset for a couple of cycles
     await RisingEdge(dut.clk)
