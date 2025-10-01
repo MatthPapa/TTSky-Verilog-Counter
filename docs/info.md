@@ -28,13 +28,19 @@ Simply run the test.py function! I have pre-made 3 tests to make sure the chip g
 - This first increments then sends n_rst to insure counter resets
 - Then increments timer 10 times and ensures increments each time
 
+![Test1](8BitC-Test1.png "Test1")
+
 #### Test 2: TRI-STATE
 - Holds the enable pin low and ensure data pins go into HIGH-Z mode
+
+![Test2](8BitC-Test2.png "Test2")
 
 #### Test 3: Load and Wrap Around
 - Loads 253 and ensures output is correct
 - Increments till 255, and once incremented one more ensures output is 0
 - Final test to make sure increments correctly after reset
+
+![Test3](8BitC-Test3.png "Test3")
 
 ## External hardware
 
