@@ -46,7 +46,7 @@ Simply run the test.py function! I have pre-made 3 tests to make sure the chip g
 Below you can see the full waveform of pre-layout using CocoTB:
 ![PreFull](8BitC_PRE.png "PreFull")
 
-Below you can see the full waveform of post-layout using CocoTB:
+Below you can see the full waveform of post-layout using GCD:
 ![PostFull](Bit8C_POST.png "PostFull")
 
 AS you can see there is very minimal changes between the two waveforms meaning my implementation of the 8-bit counter have passed all it's tests!
